@@ -1,0 +1,22 @@
+{
+    "sample_0": {
+        "best_score": 90,
+        "best_partition_bitstring": "10010000010011110110100000011111",
+        "best_cost_value": 272
+    },
+    "sample_1": {
+        "best_score": 93,
+        "best_partition_bitstring": "01110001000110100010001011011011",
+        "best_cost_value": 272
+    },
+    "sample_2": {
+        "best_score": 91,
+        "best_partition_bitstring": "00101110101011010111000011100000",
+        "best_cost_value": 272
+    },
+    "conclusion": {
+        "best_sample_id": 1,
+        "best_cut_score": 93,
+        "best_partition_bitstring": "01110001000110100010001011011011"
+    }
+}
