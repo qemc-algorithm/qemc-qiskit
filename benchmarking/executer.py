@@ -3,7 +3,7 @@
 
 import os
 import json
-from typing import Iterable, Dict, Any
+from typing import Iterable, Any
 
 import networkx as nx
 import pandas as pd
@@ -198,7 +198,9 @@ if __name__ == "__main__":
     G14 = gset_to_nx("gset_graphs/G14.txt", graph_name="G14")
     G15 = gset_to_nx("gset_graphs/G15.txt", graph_name="G15")
     G16 = gset_to_nx("gset_graphs/G16.txt", graph_name="G16")
-    ex.define_graphs([G14, G15, G16])
+
+    rrg = nx.random_regular_graph(d=5, n=16)
+    ex.define_graphs([rrg])
 
     ex.define_qemc_parameters(
         shots=[None],
