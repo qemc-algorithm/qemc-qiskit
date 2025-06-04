@@ -44,7 +44,7 @@ class QEMCExecuter:
     def define_optimization_process(
         self,
         optimization_method: str,
-        optimization_options: Dict[str, Any]
+        optimization_options: list[dict[str, Any]]
     ) -> None:
         """
         TODO
@@ -74,8 +74,14 @@ class QEMCExecuter:
             os.mkdir(graph_path)
             nx.write_graphml(graph, f"{graph_path}/graph.graphml")
 
-            for backend in self.backends:                
-                backend_path = graph_path + f"/backend_{backend.name()}"
+            for backend in self.backends:               
+
+                if isinstance(backend.name, str):
+                    backend_name = backend.name
+                else:
+                    backend_name = backend.name()
+
+                backend_path = graph_path + f"/backend_{backend_name}"
                 os.mkdir(backend_path)
                 # TODO METADATA?
 
@@ -117,9 +123,7 @@ class QEMCExecuter:
                                     )
 
                                     qemc_solver = QEMCSolver(graph, num_blue_nodes=num_blue_nodes)
-
                                     qemc_solver.construct_ansatz(num_layers, meas=meas)
-
                                     qemc_res = qemc_solver.run(
                                         shots=shots,
                                         backend=backend,
@@ -127,14 +131,7 @@ class QEMCExecuter:
                                         optimizer_options=opt_options
                                     )
 
-                                    # TODO REMOVE
-                                    # print()
-                                    # print(qemc_res)
-                                    # print()
-                                    # break
-
                                     sample_title = f"sample_{sample}"
-
                                     data = pd.concat(
                                         [
                                             data,
@@ -189,14 +186,13 @@ class QEMCExecuter:
         print("DONE ALL.")
 
 
-
 # TODO REMOVE
 if __name__ == "__main__":
 
     from qiskit_aer import StatevectorSimulator
     from gset_graph_to_nx import gset_to_nx
 
-    ex = QEMCExecuter("gset_14_15_16_exp")
+    ex = QEMCExecuter("TRY_04.06.2025")
 
     # G1 = gset_to_nx("gset_graphs/G1.txt", graph_name="G1")
     G14 = gset_to_nx("gset_graphs/G14.txt", graph_name="G14")
@@ -214,7 +210,7 @@ if __name__ == "__main__":
 
     ex.define_optimization_process(
         optimization_method="COBYLA",
-        optimization_options={"maxiter": 10_000}
+        optimization_options=[{"maxiter": 10_000}],
     )
 
     ex.execute_export(num_samples=3, export_path="EXP_DATA")

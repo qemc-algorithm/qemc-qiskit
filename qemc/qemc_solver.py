@@ -1,6 +1,5 @@
 """QEMCResult (dataclass) and QEMCSolver classes."""
 
-
 import math
 from dataclasses import dataclass
 from collections import OrderedDict
@@ -13,8 +12,7 @@ from scipy.optimize import minimize, OptimizeResult
 from qiskit import QuantumCircuit
 from qiskit.providers.backend import Backend
 from qiskit.circuit import ParameterVector
-from qiskit.result import Counts
-from qiskit_aer import AerSimulator, StatevectorSimulator
+from qiskit_aer import StatevectorSimulator
 
 from qemc.classical_functions import compute_cut_score
 
@@ -25,9 +23,9 @@ class QEMCResult:
     Dataclass to be returned by the method `run()` of a `QEMCSolver` object.
 
     Attributes:
-        optimizer_result (OptimizeResult): the result object returned by the QEMC's optimizer.
+        optimizer_result (OptimizeResult): the result object returned by the chosen SciPy optimizer.
         best_counts (Dict[str, int]): `Counts` object of the best QEMC iteration.
-        best_params (List[float]): parameters used in the best QEMC iteration.
+        best_params (List[float]): parameter vector used in the best QEMC iteration.
         best_cost_value (float): cost function's value in the best QEMC iteration.
         best_score (int): cut-score for the best partition.
         best_partition_bitstring (str): partition defined in the best QEMC iteration.
@@ -42,6 +40,7 @@ class QEMCResult:
     best_cost_value: float
     best_partition_bitstring: str
     best_score: int
+
     cuts: List[int]
     cost_values: List[float]
 
@@ -121,7 +120,68 @@ class QEMCSolver:
         self.ansatz = ansatz
         return ansatz
     
-    def compute_cost_function(self, params: List[float]) -> float:
+    def run(
+        self,
+        x0: list[int | float] | None = None,
+        shots: int | None = None,
+        backend: Backend = StatevectorSimulator(),
+        optimizer_method: str = "COBYLA",
+        optimizer_options: dict[str, Any] | None = None
+    ) -> QEMCResult:
+        """
+        Executes the QEMC algorithm for the given MaxCut problem.
+
+        Args:
+            x0: the initial value of the parameters.
+            shots: number of simulations executions.
+            backend: backend to run simulations upon.
+            optimizer_method: optimizer to use (see docstrings of `scipy.optimize.minimize` for all available options).
+            optimizer_options: Additional options dictionary to pass for the optimizer 
+            (see docstrings of `scipy.optimize.minimize` for all available options).
+
+        Returns:
+            (QEMCResult): A packed data object contains the optimizer's result and best
+            QEMC iteration properties. See QEMCResult's docstrings for additional info.
+        """
+
+        self.shots = shots
+        self.backend = backend
+
+        if x0 is None:
+            x0 = np.random.uniform(0, 2*np.pi, size=self.ansatz.num_parameters)
+
+        # Initiating containers to be filled by the `self.compute_cost_function` method
+        self.cut_scores = []
+        self.cost_values = []
+        self.best_scores = OrderedDict()
+        self.best_cost_value = self.graph.number_of_edges() * 2 # Safe upper-bound value
+        self.best_params = None
+        self.best_counts = None
+        self.best_partition_bitstring = None
+        
+        optimizer_result = minimize(
+            fun=self.compute_cost_function,
+            x0=x0,
+            method=optimizer_method,
+            options=optimizer_options
+        )
+
+        # TODO ANNOTATE
+        best_score = next(reversed(self.best_scores.values()))
+        self.best_scores[len(self.cut_scores)] = best_score
+
+        return QEMCResult(
+            optimizer_result=optimizer_result,
+            best_counts=self.best_counts,
+            best_params=self.best_params,
+            best_cost_value=self.best_cost_value,
+            best_score=best_score,
+            best_partition_bitstring=self.best_partition_bitstring,
+            cuts=self.cut_scores,
+            cost_values=self.cost_values
+        )
+    
+    def compute_cost_function(self, params: list[float]) -> float:
         """
         Computes the cost function of the QEMC algorithm w.r.t to `self.graph`.
 
@@ -137,9 +197,8 @@ class QEMCSolver:
             shots=self.shots
         ).result().get_counts()
 
-        # TODO ANNOTATE?
         if self.shots is None:
-            shots_dividing_factor = 1
+            shots_dividing_factor = 1 # The case of ideal simulation
         else:
             shots_dividing_factor = self.shots
 
@@ -187,7 +246,7 @@ class QEMCSolver:
 
         return cost
     
-    def classify_nodes(self, counts: Dict[str, int], counts_threshold: float) -> Set[int]:
+    def classify_nodes(self, counts: dict[str, int], counts_threshold: float) -> set[int]:
         """
         Given counts and a threshold line, classifies `self.graph`'s nodes into "blue" (above
         threshold line) and red (below threshold line) groups.
@@ -200,13 +259,9 @@ class QEMCSolver:
             (Set[int]): a container for the "blue" nodes.
         """
 
-        counts_items = counts.items()
-        # if self.force_blue_nodes:
-        #     return {node[0] for index, node in enumerate(counts_items) if index < self.num_blue_nodes}
-        # else:
-        return {node[0] for node in counts_items if node[1] >= counts_threshold}
+        return {node[0] for node in counts.items() if node[1] >= counts_threshold}
     
-    def classification_to_bitstring(self, blue_nodes: Set[int]) -> str:
+    def classification_to_bitstring(self, blue_nodes: set[int]) -> str:
         """
         Given the set of "nodes" and a graph, translates it to a bitstring that
         defines the partition into blue ("1") and red ("0") groups.
@@ -227,67 +282,6 @@ class QEMCSolver:
                 pass
 
         return "".join(bitstring_list)
-
-    def run(
-        self,
-        x0: Optional[List[Union[int, float]]] = None,
-        shots: Optional[int] = None,
-        backend: Optional[Backend] = StatevectorSimulator(),
-        optimizer_method: Optional[str] = "COBYLA",
-        optimizer_options: Optional[Dict[str, Any]] = None
-    ) -> QEMCResult:
-        """
-        Executes the QEMC algorithm for the given MaxCut problem.
-
-        Args:
-            x0 (Optional[List[Union[int, float]]] = None): the initial value of the parameters.
-            shots (Optional[Backend] = AerSimulator()): number of simulations executions.
-            backend (Backend = AerSimulator()): backend to run simulations upon.
-            optimizer_method (Optional[str] = "COBYLA"): optimizer to use (see docstrings
-            of `scipy.optimize.minimize` for all available options).
-            optimizer_options: Optional[Dict[str, Any]] = None TODO
-
-        Returns:
-            (QEMCResult): A packed data object contains the optimizer's result and best
-            QEMC iteration properties. See QEMCResult's docstrings for additional info.
-        """
-
-        self.shots = shots
-        self.backend = backend
-
-        if x0 is None:
-            x0 = [np.random.uniform(0, 2*np.pi) for _ in range(self.ansatz.num_parameters)]
-
-        # Initiating containers to be filled by the `self.compute_cost_function` method
-        self.cut_scores = []
-        self.cost_values = []
-        self.best_scores = OrderedDict()
-        self.best_cost_value = self.graph.number_of_edges() * 2 # Safe upper-bound value
-        self.best_params = None
-        self.best_counts = None
-        self.best_partition_bitstring = None
-        
-        optimizer_result = minimize(
-            fun=self.compute_cost_function,
-            x0=x0,
-            method=optimizer_method,
-            options=optimizer_options
-        )
-
-        # TODO ANNOTATE
-        best_score = next(reversed(self.best_scores.values()))
-        self.best_scores[len(self.cut_scores)] = best_score
-
-        return QEMCResult(
-            optimizer_result = optimizer_result,
-            best_counts=self.best_counts,
-            best_params=self.best_params,
-            best_cost_value=self.best_cost_value,
-            best_score=best_score,
-            best_partition_bitstring=self.best_partition_bitstring,
-            cuts=self.cut_scores,
-            cost_values=self.cost_values
-        )
     
 # TODO REMOVE
 if __name__ == "__main__":
@@ -296,12 +290,21 @@ if __name__ == "__main__":
     qemc_solver = QEMCSolver(graph=graph)
     qemc_solver.construct_ansatz(num_layers=3, meas=False)
 
-    for i in range(1, 11):
-        qemc_res = qemc_solver.run(optimizer_options={"rhobeg": i / 10})
-        print("RHOBEG = ", i / 10)
+    import matplotlib.pyplot as plt
+
+    for i in range(1, 2):
+        qemc_res = qemc_solver.run()#optimizer_options={"rhobeg": i / 10})
+        # print("RHOBEG = ", i / 10)
         print("BEST CUT = ", qemc_res.best_score)
         print("BEST PARTITION BITSTRING = ", qemc_res.best_partition_bitstring)
         print()
+
+        num_optimizer_steps = len(qemc_res.cuts)
+        x_axis = range(num_optimizer_steps)
+        plt.plot(x_axis, qemc_res.cuts)
+        plt.show()
+        plt.plot(x_axis, qemc_res.cost_values)
+        plt.show()
 
     from classical_functions import brute_force_maxcut
     bf_res = brute_force_maxcut(graph)
