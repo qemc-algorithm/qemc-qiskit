@@ -3,7 +3,7 @@
 import math
 from dataclasses import dataclass
 from collections import OrderedDict
-from typing import List, Optional, Union, Dict, Set, Any
+from typing import List, Optional, Dict, Any
 
 import numpy as np
 import networkx as nx
@@ -55,20 +55,15 @@ class QEMCSolver:
         self,
         graph: nx.Graph,
         num_blue_nodes: Optional[int] = None,
-        force_blue_nodes: Optional[bool] = False
     ) -> None:
         """
         Args:
             graph (Graph): the graph object to approximate a MaxCut solution for.
             num_blue_nodes: Optional[int] = None TODO
-            force_blue_nodes: Optional[bool] = False TODO
         """
 
         self.graph = graph
         self.num_nodes = graph.number_of_nodes()
-
-        # TODO ANNOTATE?
-        self.force_blue_nodes = force_blue_nodes
         
         # TODO ANNOTATE?
         if num_blue_nodes is None:
