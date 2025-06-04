@@ -1,3 +1,10 @@
 qiskit==2.0.2
 qiskit-aer==0.17.0
 networkx==3.4.2
+pandas==2.2.3
+
+# For the good old look and feel of Jupyter notebooks install these versions of `jupyter`, `notebook`, `traitlets`, `ipython`
+jupyter==1.1.1
+notebook==6.4.8
+traitlets==5.9.0
+ipython==8.11.0
