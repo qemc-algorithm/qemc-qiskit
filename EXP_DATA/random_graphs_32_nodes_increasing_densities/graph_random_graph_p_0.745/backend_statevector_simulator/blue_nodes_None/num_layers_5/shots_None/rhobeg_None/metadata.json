@@ -1,0 +1,12 @@
+{
+    "mean_cost_values": {
+        "mean_cost_0": 0.848535694340985,
+        "mean_cost_1": 0.8258811913690511,
+        "mean_cost_2": 0.8641989014294992
+    },
+    "mean_cuts_values": {
+        "mean_cuts_0": 206.2704,
+        "mean_cuts_1": 208.6236,
+        "mean_cuts_2": 199.7592
+    }
+}
