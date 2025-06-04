@@ -133,7 +133,7 @@ class QEMCSolver:
         """
 
         counts = self.backend.run(
-            self.ansatz.bind_parameters(params),
+            self.ansatz.assign_parameters(params),
             shots=self.shots
         ).result().get_counts()
 
