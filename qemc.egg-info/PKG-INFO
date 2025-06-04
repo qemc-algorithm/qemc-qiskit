@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: qemc
-Version: 0.1.0
-Summary: An implementation of the QEMC algorithm
-Author: Ohad Lev
-Author-email: ohadlev77@Gmail.com
-Requires-Python: >=3.10
