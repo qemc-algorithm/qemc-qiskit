@@ -1,0 +1,47 @@
+{
+    "date_time": "2025-07-02T15:00:35.107166",
+    "graph": "random_graph__p_0.307__density_0.30__seed_0",
+    "backend_name": "statevector_simulator",
+    "best_configuration": 1,
+    "best_average_best_cut": 370.2,
+    "best_cut": 395,
+    "best_partition_bitstring": "0001110110010011100110101001010011001010110100110110011001101010",
+    "configurations": {
+        "1": {
+            "stamp": "graph=random_graph__p_0.307__density_0.30__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1000, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1000,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_table1_comparison_C/graph_random_graph__p_0.307__density_0.30__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_1",
+            "best_algorithm_sample": 9,
+            "best_cut": 390,
+            "average_best_cut": 370.2,
+            "best_partition_bitstring": "0001110110011011100100110100010111001000100100110110011000101010"
+        },
+        "2": {
+            "stamp": "graph=random_graph__p_0.307__density_0.30__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=10, shots=None, optimization_options={'maxiter': 1000, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 10,
+                "optimization_options": {
+                    "maxiter": 1000,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_table1_comparison_C/graph_random_graph__p_0.307__density_0.30__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_10/shots_None/rhobeg_1",
+            "best_algorithm_sample": 6,
+            "best_cut": 395,
+            "average_best_cut": 368.90000000000003,
+            "best_partition_bitstring": "0001110110010011100110101001010011001010110100110110011001101010"
+        }
+    }
+}
