@@ -149,9 +149,8 @@ class QEMCSolver:
         self.cut_scores = []
         self.cost_values = []
         self.best_scores = OrderedDict()
-        self.best_cost_value = self.graph.number_of_edges() * 2 # Safe upper-bound value
-        self.best_params = None
-        self.best_counts = None
+        self.best_params = []
+        self.best_counts = dict()
         self.best_partition_bitstring = None
         
         optimizer_result = minimize(
@@ -168,8 +167,8 @@ class QEMCSolver:
         return QEMCResult(
             optimizer_result=optimizer_result,
             best_counts=self.best_counts,
-            best_params=self.best_params,
-            best_cost_value=self.best_cost_value,
+            best_params=list(self.best_params),
+            best_cost_value=min(self.cost_values),
             best_score=best_score,
             best_partition_bitstring=self.best_partition_bitstring,
             cuts=self.cut_scores,
@@ -277,31 +276,3 @@ class QEMCSolver:
                 pass
 
         return "".join(bitstring_list)
-    
-# TODO REMOVE
-if __name__ == "__main__":
-
-    graph = nx.random_regular_graph(d=4, n=14)
-    qemc_solver = QEMCSolver(graph=graph)
-    qemc_solver.construct_ansatz(num_layers=3, meas=False)
-
-    import matplotlib.pyplot as plt
-
-    for i in range(1, 2):
-        qemc_res = qemc_solver.run()#optimizer_options={"rhobeg": i / 10})
-        # print("RHOBEG = ", i / 10)
-        print("BEST CUT = ", qemc_res.best_score)
-        print("BEST PARTITION BITSTRING = ", qemc_res.best_partition_bitstring)
-        print()
-
-        num_optimizer_steps = len(qemc_res.cuts)
-        x_axis = range(num_optimizer_steps)
-        plt.plot(x_axis, qemc_res.cuts)
-        plt.show()
-        plt.plot(x_axis, qemc_res.cost_values)
-        plt.show()
-
-    from classical_functions import brute_force_maxcut
-    bf_res = brute_force_maxcut(graph)
-    print("BRUTE FORCE BEST SCORE = ", bf_res.best_score)
-    print("BRUTE FORCE OPTIMAL PARTITIONS = ", bf_res.optimal_partitions)
