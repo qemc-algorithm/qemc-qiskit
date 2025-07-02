@@ -15,7 +15,7 @@ from qemc.qemc_solver import QEMCSolver
 class QEMCExecuter:
     """
         A framework intended for systematically executing the QEMC algorithm and storing
-        its output data, with the option to easily tune the QEMC algorithm's paramaters
+        its output data, with the option to tune the QEMC algorithm's paramaters
         in order to test different, multiple configurations with ease.
     """
 
@@ -67,7 +67,9 @@ class QEMCExecuter:
 
         path = f"{export_path}/{self.experiment_name}"
         os.mkdir(path)
-        print("Executing experiment.")
+
+        print("Executing experiment...")
+        print()
 
         for graph in self.graphs:
             graph_path = path + f"/graph_{graph.name}"
@@ -81,9 +83,20 @@ class QEMCExecuter:
                 else:
                     backend_name = backend.name()
 
+                num_configurations_per_backend = 0
+                total_backend_configurations_metadata = {
+                    "date_time": pd.Timestamp.now().isoformat(),
+                    "graph": graph.name,
+                    "backend_name": backend_name,
+                    "best_configuration": None,
+                    "best_average_best_cut": 0,
+                    "best_cut": 0,
+                    "best_partition_bitstring": None,
+                    "configurations": dict(),
+                }
+
                 backend_path = graph_path + f"/backend_{backend_name}"
                 os.mkdir(backend_path)
-                # TODO METADATA?
 
                 for num_blue_nodes in self.num_blue_nodes:
                     blue_nodes_path = backend_path + f"/blue_nodes_{num_blue_nodes}"
@@ -106,21 +119,46 @@ class QEMCExecuter:
                                 os.mkdir(opt_options_path)
 
                                 # TODO ANNOTATE
-                                data = pd.DataFrame()
+                                configuration_data = pd.DataFrame()
 
                                 # TODO ANNOTATE
-                                best_data = dict()
+                                configuration_metadata = dict()
                                 best_cut = 0
+                                average_best_cut = 0
 
-                                # TODO COMPLETE and ANNOTATE, RIGHT NOW NO METADATA
-                                metadata = dict()
+                                configuration_metadata["summary"] = {
+                                    "date_time": pd.Timestamp.now().isoformat(),
+                                    "graph": graph.name,
+                                    "backend": backend_name,
+                                    "num_blue_nodes": num_blue_nodes,
+                                    "num_layers": num_layers,
+                                    "shots": shots,
+                                    "optimization_method": self.optimization_method,
+                                    "optimization_options": opt_options
+                                }
+
+                                configuration_stamp = (
+                                    f"graph={graph.name}, backend={backend}," \
+                                    f" num_blue_nodes={num_blue_nodes}, num_layers={num_layers}," \
+                                    f" shots={shots}, optimization_options={opt_options}," \
+                                    f" optimization_method={self.optimization_method}"
+                                )
+                                num_configurations_per_backend += 1
+                                total_backend_configurations_metadata["configurations"][num_configurations_per_backend] = {
+                                    "stamp": configuration_stamp,
+                                    "setting": {
+                                        "optimization_method": self.optimization_method,
+                                        "num_layers": num_layers,
+                                        "optimization_options": opt_options,
+                                        "num_blue_nodes": num_blue_nodes,
+                                        "shots": shots
+                                    },
+                                    "data_path": opt_options_path
+                                }
+                                print(f"Executing configuration {num_configurations_per_backend}: {configuration_stamp}.")
 
                                 for sample in range(num_samples):
-                                    print(
-                                        f"Executing graph={graph}, backend={backend}," \
-                                        f" num_blue_nodes={num_blue_nodes}, num_layers={num_layers}," \
-                                        f" shots={shots}, sample={sample}, rhobeg={rhobeg}."
-                                    )
+                                    print(f"Executing algorithm_repeat={sample}.")
 
                                     qemc_solver = QEMCSolver(graph, num_blue_nodes=num_blue_nodes)
                                     qemc_solver.construct_ansatz(num_layers, meas=meas)
@@ -132,9 +170,9 @@ class QEMCExecuter:
                                     )
 
                                     sample_title = f"sample_{sample}"
-                                    data = pd.concat(
+                                    configuration_data = pd.concat(
                                         [
-                                            data,
+                                            configuration_data,
                                             pd.DataFrame(
                                                 {
                                                     f"{sample_title}_costs": qemc_res.cost_values,
@@ -145,50 +183,52 @@ class QEMCExecuter:
                                         axis=1
                                     )
 
-                                    best_data[sample_title] = {
-                                        "best_score": qemc_res.best_score,
+                                    configuration_metadata[sample_title] = {
+                                        "best_cut": qemc_res.best_score,
                                         "best_partition_bitstring": qemc_res.best_partition_bitstring,
-                                        "best_cost_value": qemc_res.best_cost_value
+                                        "best_cost_value": qemc_res.best_cost_value,
+                                        "best_params_vector": qemc_res.best_params,
+                                        "best_counts": qemc_res.best_counts,
                                     }
 
+                                    average_best_cut += (qemc_res.best_score / num_samples)
                                     if qemc_res.best_score > best_cut:
                                         best_cut = qemc_res.best_score
                                         best_partition_bitstring = qemc_res.best_partition_bitstring
                                         best_sample_id = sample
 
-                                # TODO ANNOTATE
-                                best_data["conclusion"] = {
-                                    "best_sample_id": best_sample_id,
-                                    "best_cut_score": best_cut,
+                                curated_configuration_metadata = {
+                                    "best_algorithm_sample": best_sample_id,
+                                    "best_cut": best_cut,
+                                    "average_best_cut": average_best_cut,
                                     "best_partition_bitstring": best_partition_bitstring
                                 }
-                                
-                                # Exporting data for all `samples` data points of the same configuration
-                                with open(f"{opt_options_path}/best_data.json", "w") as f:
-                                    json.dump(best_data, f, indent=4)
+                                configuration_metadata["summary"].update(curated_configuration_metadata)
+                                total_backend_configurations_metadata["configurations"][num_configurations_per_backend].update(curated_configuration_metadata)
 
-                                # METADATA GENERATION TODO ANNOTATE
-                                metadata["mean_cost_values"] = {
-                                    f"mean_cost_{i}": data[f"sample_{i}_costs"].mean() \
-                                    for i in range(num_samples)
-                                }
-                                metadata["mean_cuts_values"] = {
-                                    f"mean_cuts_{i}": data[f"sample_{i}_cuts"].mean() \
-                                    for i in range(num_samples)
-                                }
+                                if average_best_cut > total_backend_configurations_metadata["best_average_best_cut"]:
+                                    total_backend_configurations_metadata["best_configuration"] = num_configurations_per_backend
+                                    total_backend_configurations_metadata["best_average_best_cut"] = average_best_cut
 
-                                with open(f"{opt_options_path}/metadata.json", "w") as f:
-                                    json.dump(metadata, f, indent=4)
+                                if best_cut > total_backend_configurations_metadata["best_cut"]:
+                                    total_backend_configurations_metadata["best_cut"] = best_cut
+                                    total_backend_configurations_metadata["best_partition_bitstring"] = best_partition_bitstring
 
-                                data.to_csv(f"{opt_options_path}/data.csv")
+                                with open(f"{opt_options_path}/configuration_metadata.json", "w") as f:
+                                    json.dump(configuration_metadata, f, indent=4)
 
-                                print("Done with this setting.")
-        print("DONE ALL.")
+                                configuration_data.to_csv(f"{opt_options_path}/configuration_data.csv")
+
+                                print(f"Done executing {num_samples} repeats for this configuration.")
+                                print()
+
+                with open(f"{backend_path}/total_backend_configurations_metadata.json", "w") as f:
+                    json.dump(total_backend_configurations_metadata, f, indent=4)
+
+        print("Done executing experiment.")
 
 
-# TODO REMOVE
 if __name__ == "__main__":
-
     from qiskit_aer import StatevectorSimulator
     from gset_graph_to_nx import gset_to_nx
 
