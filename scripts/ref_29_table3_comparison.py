@@ -6,7 +6,7 @@ from qemc.benchmarking.executer import QEMCExecuter
 
 # Configuration for the experiment
 num_algorithm_repeats = 10
-maxiter = 1_000
+maxiter = 3_000
 num_layers = [5, 7, 9, 11, 13] # [3, 4, 5, 6, 7]
 rhobegs = [0.8, 0.9, 1, 1.1, 1.2]
 
@@ -30,7 +30,7 @@ for p in probs_vec:
 
     graphs.append(graph)
 
-executer = QEMCExecuter(experiment_name="ref_29_table3_comparison")
+executer = QEMCExecuter(experiment_name="ref_29_table3_comparison__iters_3000")
 executer.define_graphs(graphs)
 executer.define_qemc_parameters(
     shots=[None],

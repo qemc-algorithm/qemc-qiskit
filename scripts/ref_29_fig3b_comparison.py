@@ -11,12 +11,11 @@ seed = 0
 
 # Configuration for the experiment
 num_algorithm_repeats = 50
-maxiter = 750
-num_layers = [3, 4, 5, 6, 7]
+maxiter = 1_500
+num_layers = [5, 7, 9, 11, 13]
 rhobegs = [0.8, 0.9, 1, 1.1, 1.2]
 
-B = num_nodes / 2
-num_blue_nodes = [B, B - 2, B - 4]
+num_blue_nodes = [None]
 
 
 graphs = []
@@ -34,7 +33,7 @@ for p in probs_vec:
     graphs.append(graph)
 
 
-executer = QEMCExecuter(experiment_name="ref_29_fig3b_comparison_multiple_B_values")
+executer = QEMCExecuter(experiment_name="ref_29_fig3b_comparison__iters_1500__layers_5to13")
 executer.define_graphs(graphs)
 executer.define_qemc_parameters(
     shots=[None],

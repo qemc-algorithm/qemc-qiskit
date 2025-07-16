@@ -1,0 +1,461 @@
+{
+    "date_time": "2025-07-15T15:52:00.904950",
+    "graph": "random_graph__p_0.660__density_0.65__seed_0",
+    "backend_name": "statevector_simulator",
+    "best_configuration": 20,
+    "best_average_best_cut": 190.28000000000003,
+    "best_cut": 196,
+    "best_partition_bitstring": "11010111110100001011000110110000",
+    "configurations": {
+        "1": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=5, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.8}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 5,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.8
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_5/shots_None/rhobeg_0.8",
+            "best_algorithm_sample": 13,
+            "best_cut": 195,
+            "average_best_cut": 186.92,
+            "best_partition_bitstring": "11000011110100001011000110110001"
+        },
+        "2": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=5, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.9}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 5,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.9
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_5/shots_None/rhobeg_0.9",
+            "best_algorithm_sample": 21,
+            "best_cut": 196,
+            "average_best_cut": 187.24000000000007,
+            "best_partition_bitstring": "11010111110100001011000110110000"
+        },
+        "3": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=5, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 5,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_5/shots_None/rhobeg_1",
+            "best_algorithm_sample": 12,
+            "best_cut": 194,
+            "average_best_cut": 187.14,
+            "best_partition_bitstring": "11011011010100000011001110010110"
+        },
+        "4": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=5, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 5,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_5/shots_None/rhobeg_1.1",
+            "best_algorithm_sample": 28,
+            "best_cut": 194,
+            "average_best_cut": 187.68,
+            "best_partition_bitstring": "11000111110100001011000010110100"
+        },
+        "5": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=5, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.2}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 5,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.2
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_5/shots_None/rhobeg_1.2",
+            "best_algorithm_sample": 44,
+            "best_cut": 196,
+            "average_best_cut": 188.17999999999995,
+            "best_partition_bitstring": "11000111110100001011000110110100"
+        },
+        "6": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.8}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.8
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_0.8",
+            "best_algorithm_sample": 24,
+            "best_cut": 196,
+            "average_best_cut": 188.06000000000003,
+            "best_partition_bitstring": "00111000001011110100111001000111"
+        },
+        "7": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.9}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.9
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_0.9",
+            "best_algorithm_sample": 15,
+            "best_cut": 194,
+            "average_best_cut": 188.65999999999997,
+            "best_partition_bitstring": "11000011010100000011000110110111"
+        },
+        "8": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_1",
+            "best_algorithm_sample": 21,
+            "best_cut": 196,
+            "average_best_cut": 188.17999999999998,
+            "best_partition_bitstring": "11010111110100001011000110110000"
+        },
+        "9": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_1.1",
+            "best_algorithm_sample": 11,
+            "best_cut": 196,
+            "average_best_cut": 188.32000000000002,
+            "best_partition_bitstring": "11000111110100001011000110110000"
+        },
+        "10": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=7, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.2}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 7,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.2
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_7/shots_None/rhobeg_1.2",
+            "best_algorithm_sample": 4,
+            "best_cut": 195,
+            "average_best_cut": 188.08000000000004,
+            "best_partition_bitstring": "00101100001011110100111001001111"
+        },
+        "11": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=9, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.8}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 9,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.8
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_9/shots_None/rhobeg_0.8",
+            "best_algorithm_sample": 23,
+            "best_cut": 196,
+            "average_best_cut": 188.60000000000002,
+            "best_partition_bitstring": "11000111110100001011000110111000"
+        },
+        "12": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=9, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.9}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 9,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.9
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_9/shots_None/rhobeg_0.9",
+            "best_algorithm_sample": 0,
+            "best_cut": 196,
+            "average_best_cut": 189.08,
+            "best_partition_bitstring": "00111000001011110100111001000111"
+        },
+        "13": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=9, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 9,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_9/shots_None/rhobeg_1",
+            "best_algorithm_sample": 17,
+            "best_cut": 196,
+            "average_best_cut": 189.46,
+            "best_partition_bitstring": "11000111110100001011000110110000"
+        },
+        "14": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=9, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 9,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_9/shots_None/rhobeg_1.1",
+            "best_algorithm_sample": 36,
+            "best_cut": 196,
+            "average_best_cut": 188.76,
+            "best_partition_bitstring": "00111000001011110100111001001111"
+        },
+        "15": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=9, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.2}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 9,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.2
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_9/shots_None/rhobeg_1.2",
+            "best_algorithm_sample": 7,
+            "best_cut": 196,
+            "average_best_cut": 187.82000000000002,
+            "best_partition_bitstring": "11000111110100001011000110110100"
+        },
+        "16": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=11, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.8}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 11,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.8
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_11/shots_None/rhobeg_0.8",
+            "best_algorithm_sample": 5,
+            "best_cut": 196,
+            "average_best_cut": 189.42,
+            "best_partition_bitstring": "00111000001011110100111001001011"
+        },
+        "17": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=11, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.9}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 11,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.9
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_11/shots_None/rhobeg_0.9",
+            "best_algorithm_sample": 6,
+            "best_cut": 196,
+            "average_best_cut": 188.57999999999998,
+            "best_partition_bitstring": "00111000001011110100111001001011"
+        },
+        "18": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=11, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 11,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_11/shots_None/rhobeg_1",
+            "best_algorithm_sample": 28,
+            "best_cut": 196,
+            "average_best_cut": 189.10000000000002,
+            "best_partition_bitstring": "11000111110100001011000110110100"
+        },
+        "19": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=11, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 11,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_11/shots_None/rhobeg_1.1",
+            "best_algorithm_sample": 20,
+            "best_cut": 196,
+            "average_best_cut": 188.94000000000003,
+            "best_partition_bitstring": "00111000001011110100111001000111"
+        },
+        "20": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=11, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.2}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 11,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.2
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_11/shots_None/rhobeg_1.2",
+            "best_algorithm_sample": 27,
+            "best_cut": 196,
+            "average_best_cut": 190.28000000000003,
+            "best_partition_bitstring": "11000111110100001011000110110000"
+        },
+        "21": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=13, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.8}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 13,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.8
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_13/shots_None/rhobeg_0.8",
+            "best_algorithm_sample": 5,
+            "best_cut": 196,
+            "average_best_cut": 189.61999999999995,
+            "best_partition_bitstring": "00101000001011110100111001001111"
+        },
+        "22": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=13, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 0.9}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 13,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 0.9
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_13/shots_None/rhobeg_0.9",
+            "best_algorithm_sample": 8,
+            "best_cut": 196,
+            "average_best_cut": 188.99999999999997,
+            "best_partition_bitstring": "11000111110100001011000110110100"
+        },
+        "23": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=13, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 13,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_13/shots_None/rhobeg_1",
+            "best_algorithm_sample": 0,
+            "best_cut": 196,
+            "average_best_cut": 189.64000000000001,
+            "best_partition_bitstring": "00111000001011110100111001001011"
+        },
+        "24": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=13, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.1}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 13,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.1
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_13/shots_None/rhobeg_1.1",
+            "best_algorithm_sample": 1,
+            "best_cut": 194,
+            "average_best_cut": 188.71999999999997,
+            "best_partition_bitstring": "00111100001011110100111001101000"
+        },
+        "25": {
+            "stamp": "graph=random_graph__p_0.660__density_0.65__seed_0, backend=StatevectorSimulator('statevector_simulator'), num_blue_nodes=None, num_layers=13, shots=None, optimization_options={'maxiter': 1500, 'rhobeg': 1.2}, optimization_method=COBYLA",
+            "setting": {
+                "optimization_method": "COBYLA",
+                "num_layers": 13,
+                "optimization_options": {
+                    "maxiter": 1500,
+                    "rhobeg": 1.2
+                },
+                "num_blue_nodes": null,
+                "shots": null
+            },
+            "data_path": "EXP_DATA/ref_29_fig3b_comparison__iters_1500__layers_5to13/graph_random_graph__p_0.660__density_0.65__seed_0/backend_statevector_simulator/blue_nodes_None/num_layers_13/shots_None/rhobeg_1.2",
+            "best_algorithm_sample": 5,
+            "best_cut": 194,
+            "average_best_cut": 188.53999999999996,
+            "best_partition_bitstring": "11010011110100001011000110010010"
+        }
+    }
+}
