@@ -276,3 +276,13 @@ class QEMCSolver:
                 pass
 
         return "".join(bitstring_list)
+    
+
+if __name__ == "__main__":
+    solver = QEMCSolver(
+        graph=nx.Graph([(i, (i+1)%8) for i in range(8)]),
+        # num_blue_nodes=4
+    )
+    ansatz = solver.construct_ansatz(num_layers=2)
+
+    print(ansatz)
