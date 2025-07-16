@@ -113,3 +113,33 @@ def partition_draw(graph: nx.Graph, bitstring: str, ax: Subplot, pos: Dict[int, 
     ordered_colors = [little_endian_colors[node_index] for node_index in graph.nodes]
     
     nx.draw(graph, with_labels=True, pos=pos, node_color=ordered_colors, ax=ax)
+
+
+def get_random_partition(num_nodes: int, num_blue_nodes: Optional[int] = None) -> str:
+    """
+    Generate a random partition bitstring for a graph with `num_nodes` nodes.
+    Optionally, specify the number of blue nodes (set to "1").
+    If `num_blue_nodes` is None, defaults to half the nodes (rounded down).
+
+    Args:
+        num_nodes (int): Number of nodes in the graph.
+        num_blue_nodes (Optional[int]): Number of nodes assigned to the blue group ("1").
+            If None, defaults to num_nodes // 2.
+
+    Returns:
+        str: A bitstring of length `num_nodes` with exactly `num_blue_nodes` ones.
+    """
+    if num_blue_nodes is None:
+        num_blue_nodes = num_nodes // 2
+
+    indices = np.arange(num_nodes)
+    blue_indices = np.random.choice(indices, size=num_blue_nodes, replace=False)
+    bitstring = ["0"] * num_nodes
+    for idx in blue_indices:
+        bitstring[idx] = "1"
+    return "".join(bitstring)
+
+
+if __name__ == "__main__":
+    for _ in range(10):
+        print(get_random_partition(num_nodes=30, num_blue_nodes=7))
