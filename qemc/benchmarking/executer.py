@@ -21,6 +21,7 @@ class QEMCExecuter:
 
     def __init__(self, experiment_name: str) -> None:
         self.experiment_name = experiment_name
+        self.scans = None
 
     def define_graphs(self, graphs: Iterable[nx.Graph]) -> None:
         """A method used to define the graph instances to be executed by the framework."""
@@ -59,6 +60,11 @@ class QEMCExecuter:
         """
 
         self.backends = backends
+
+    def define_custom_scans(self, scans: list[dict[str, Any]]) -> None:
+        """TODO COMPLETE."""
+
+        self.scans = scans
 
     def execute_export(self, num_samples: int, export_path: str) -> None:
         """
@@ -114,6 +120,28 @@ class QEMCExecuter:
                             meas = False if shots is None else True
 
                             for opt_options in self.optimization_options:
+
+                                # TODO DOCUMENT THIS
+                                if self.scans is not None:
+                                    config_exist = False
+                                    for scan in self.scans:
+                                        if all(
+                                            (
+                                                scan.get("graph") in [graph, None],
+                                                scan.get("backend") in [backend, None],
+                                                scan.get("num_blue_nodes") in [num_blue_nodes, None],
+                                                scan.get("num_layers") in [num_layers, None],
+                                                scan.get("shots") in [shots, None],
+                                                scan.get("opt_options") in [opt_options, None]
+                                            )
+                                        ):
+                                            config_exist = True
+                                            break
+
+                                    if not config_exist:
+                                        print(f"Skipping configuration..")
+                                        continue
+
                                 rhobeg = opt_options.get("rhobeg")
                                 opt_options_path = shots_path + f"/rhobeg_{rhobeg}"
                                 os.mkdir(opt_options_path)
