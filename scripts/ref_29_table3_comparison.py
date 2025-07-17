@@ -6,7 +6,7 @@ from qemc.benchmarking.executer import QEMCExecuter
 
 # Configuration for the experiment
 num_algorithm_repeats = 7
-maxiter = 5_000
+maxiter = 20_000
 num_layers = [15, 20, 25, 30]
 rhobegs = [1.0, 1.2, 1.4]
 
@@ -32,7 +32,7 @@ for p in probs_vec:
 
 
 executer = QEMCExecuter(
-    experiment_name="ref_29_table3_comparison__iters_5000__rhobegs_1.0_1.2_1.4__layers_15to30__repeats_7"
+    experiment_name="ref_29_table3_comparison__iters_20000__chosen_combinations"
 )
 executer.define_graphs(graphs)
 executer.define_qemc_parameters(
@@ -45,4 +45,29 @@ executer.define_optimization_process(
     optimization_options=[{"maxiter": maxiter, "rhobeg": rhobeg} for rhobeg in rhobegs],
 )
 executer.define_backends([StatevectorSimulator()])
+
+executer.define_custom_scans(
+    [
+        {
+            "graph": graphs[0],
+            "num_layers": 20,
+            "opt_options": {"maxiter": maxiter, "rhobeg": 1.2}
+        },
+        {
+            "graph": graphs[1],
+            "num_layers": 30,
+            "opt_options": {"maxiter": maxiter, "rhobeg": 1.2}
+        },
+        {
+            "graph": graphs[2],
+            "num_layers": 20,
+            "opt_options": {"maxiter": maxiter, "rhobeg": 1.4}
+        },
+        {
+            "graph": graphs[3],
+            "num_layers": 30,
+            "opt_options": {"maxiter": maxiter, "rhobeg": 1.2}
+        },
+    ]
+)
 executer.execute_export(num_samples=num_algorithm_repeats, export_path="EXP_DATA")
