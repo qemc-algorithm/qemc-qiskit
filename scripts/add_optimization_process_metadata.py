@@ -33,6 +33,10 @@ def main():
         print()
         print(f"Processing configuration: {data_dir_path}...")
 
+        if check_if_updated(data_dir_path):
+            print("THIS CONFIGURATION HAS ALREADY BEEN UPDATED WITH OPTIMIZATION PROCESS METADATA. MOVING ON TO THE NEXT CONFIGURATION.")
+            continue
+
         data = pd.read_csv(data_file_path)
 
         # Number of algorithm repetitions, a.k.a number of samples
@@ -79,8 +83,8 @@ def main():
             tail_window_size=tail_window_size,
         )
 
-        if alter_metadata(**kwargs):
-            plot(**kwargs)
+        alter_metadata(**kwargs)
+        plot(**kwargs)
 
         print(f"Done with {data_dir_path}.")
 
@@ -129,6 +133,17 @@ def plot(
     fig.tight_layout()
 
     plt.savefig(Path(data_dir_path, "optimization_process.png"))
+
+
+def check_if_updated(data_dir_path: Path) -> bool:
+    """Check if the metadata file has already been updated with optimization process data."""
+    
+    metadata_file = Path(data_dir_path, "configuration_metadata.json")
+
+    with open(metadata_file, "r") as f:
+        metadata = json.load(f)
+
+    return metadata["summary"].get("is_updated_optimization_process", False)
 
 
 def alter_metadata(

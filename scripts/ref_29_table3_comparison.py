@@ -5,14 +5,14 @@ from qemc.benchmarking.executer import QEMCExecuter
 
 
 # Configuration for the experiment
-num_algorithm_repeats = 10
-maxiter = 3_000
-num_layers = [5, 7, 9, 11, 13] # [3, 4, 5, 6, 7]
-rhobegs = [0.8, 0.9, 1, 1.1, 1.2]
+num_algorithm_repeats = 7
+maxiter = 5_000
+num_layers = [15, 20, 25, 30]
+rhobegs = [1.0, 1.2, 1.4]
 
 # Graphs generation parameters
 num_nodes = 128
-probs_vec = [0.3, 0.4, 0.5, 0.6]
+probs_vec = [0.3044, 0.4045, 0.507, 0.6035]
 seed = 0
 
 
@@ -30,7 +30,10 @@ for p in probs_vec:
 
     graphs.append(graph)
 
-executer = QEMCExecuter(experiment_name="ref_29_table3_comparison__iters_3000")
+
+executer = QEMCExecuter(
+    experiment_name="ref_29_table3_comparison__iters_5000__rhobegs_1.0_1.2_1.4__layers_15to30__repeats_7"
+)
 executer.define_graphs(graphs)
 executer.define_qemc_parameters(
     shots=[None],
