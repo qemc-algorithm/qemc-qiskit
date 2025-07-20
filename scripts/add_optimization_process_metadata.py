@@ -26,6 +26,7 @@ def main(updated_bool_field_name: str = "is_updated_optimization_process") -> No
     data_files_paths = list(Path("EXP_DATA").rglob("configuration_data.csv"))
     graphml_file = None
     avg_random_cut = []
+    avg_best_random_cut = []
 
     tail_std_threshold = 5e-4
     tail_window_size = 50
@@ -53,9 +54,6 @@ def main(updated_bool_field_name: str = "is_updated_optimization_process") -> No
         # Number optimizer iterations
         num_optimizer_iterations = data.shape[0]
 
-        avg_best_random_cut = np.zeros(num_optimizer_iterations)
-        just_update_best_random_cut = True
-
         # Average cost and cut over all algorithm repetitions (sum of columns divided by `num_algorithm_repetitions`)
         avg_cost = data.iloc[:, 1::2].mean(axis=1)
         avg_cut = data.iloc[:, 2::2].mean(axis=1)
@@ -63,6 +61,8 @@ def main(updated_bool_field_name: str = "is_updated_optimization_process") -> No
         # STD
         avg_cost_window = avg_cost[-tail_window_size:]
         cost_tail_std = np.std(avg_cost_window)
+
+        just_update_best_random_cut = True
 
         # Compute average random cut per optimizer iteration
         new_graphml_filepath = find_graphml_file(data_file_path)
