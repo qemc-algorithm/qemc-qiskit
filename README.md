@@ -1,6 +1,6 @@
 # QEMC (Qubit Efficient MaxCut) Algorithm Implementation
 
-Implementation of **A Variational Qubit-Efficient MaxCut Heuristic Algorithm**: [arXiv:2308.10383](https://arxiv.org/abs/2308.10383).
+Implementation (with Qiskit) of the QEMC algorithm described in the paper **A Variational Qubit-Efficient MaxCut Heuristic Algorithm**: [arXiv:2308.10383](https://arxiv.org/abs/2308.10383).
 
 ## Installation
 
@@ -59,4 +59,4 @@ ex.define_optimization_process(
 ex.execute_export(num_samples=3, export_path="DATA_PATH_OF_YOUR_CHOICE")
 ```
 
-`QEMCExecuter` framework allos for a nested, multi-configuration execution of QEMC. Data will be saved in a logical nested way for each configuration combination.
+`QEMCExecuter` framework allows for a nested, multi-configuration execution of QEMC. Data will be saved in a logical nested way for each configuration combination.
