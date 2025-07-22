@@ -1,8 +1,10 @@
+from dataclasses import dataclass, asdict
+
 import cvxpy as cvx
 import networkx as nx
-import numpy as np
 
-import matplotlib.pyplot as plt
+import numpy as np
+from numpy.typing import NDArray
 
 
 def split(cut):
@@ -10,12 +12,6 @@ def split(cut):
     S = [i for i in range(n) if cut[i]]
     T = [i for i in range(n) if not cut[i]]
     return S, T
-
-
-def cut_cost1(cut, G):
-    S, T = split(cut)
-    l = list(nx.edge_boundary(G, S, T))
-    return len(l)
 
 
 def cut_cost(x, L):
@@ -48,13 +44,38 @@ def brute_force_max_cut(G):
     return max_cut_value
 
 
-def SDP_max_cut(G):
-    n = G.number_of_nodes()
-    L = nx.laplacian_matrix(G, nodelist=sorted(G.nodes))
+@dataclass
+class GWMaxCutResult:
+    num_repetitions: int
+    cuts: list[np.float64]
+    mean_cut: float
+    best_cut: float
+    partitions: list[NDArray[np.int32]]
+
+
+def obtain_gw_max_cut(
+    graph: nx.Graph,
+    num_repetitions: int,
+) -> GWMaxCutResult:
+    """
+    Implements the Goemans-Williamson (GW) algorithm for approximating the MaxCut of a graph.
+    Solves the SDP relaxation and performs randomized hyperplane rounding.
+
+    Args:
+        graph (nx.Graph): Input graph.
+        num_repetitions (int): Number of random hyperplane rounds to perform.
+
+    Returns:
+        GWMaxCutResult: Dataclass containing cuts (dimension = num_repetitions),
+        mean_cut, best_cut, and partitions(dimension = num_repetitions).
+    """
+
+    num_nodes = graph.number_of_nodes()
+    L = nx.laplacian_matrix(graph, nodelist=sorted(graph.nodes))
 
     # SDP solution
-    X = cvx.Variable((n, n), PSD=True)
-    obj = 0.25 * cvx.trace(L.toarray() * X)
+    X = cvx.Variable((num_nodes, num_nodes), PSD=True)
+    obj = 0.25 * cvx.trace(L.toarray() @ X)
     constr = [cvx.diag(X) == 1]
     problem = cvx.Problem(cvx.Maximize(obj), constraints=constr)
     problem.solve(solver=cvx.SCS)
@@ -63,14 +84,21 @@ def SDP_max_cut(G):
     u, s, v = np.linalg.svd(X.value)
     U = u * np.sqrt(s)
 
-    num_trials = 30 # УЗБЧ
-    gw_results = np.zeros(num_trials)
-    for i in range(num_trials):
-        r = np.random.randn(n)
+    cuts = np.zeros(num_repetitions)
+    partitions = []
+    for i in range(num_repetitions):
+        r = np.random.randn(num_nodes)
         r = r / np.linalg.norm(r)
-        cut = np.sign(r @ U.T)
-        gw_results[i] = cut_cost(cut, L)
 
-    # Verbose result
-    _ = plt.hist(gw_results, bins=100)
-    return (np.mean(gw_results), np.max(gw_results))
+        partition = np.sign(r @ U.T)
+        partitions.append([int(sign) for sign in partition])
+        
+        cuts[i] = float(cut_cost(partition, L))
+
+    return GWMaxCutResult(
+        num_repetitions=num_repetitions,
+        cuts=[float(cut) for cut in cuts],
+        mean_cut=float(np.mean(cuts)),
+        best_cut=int(np.max(cuts)),
+        partitions=partitions
+    )
