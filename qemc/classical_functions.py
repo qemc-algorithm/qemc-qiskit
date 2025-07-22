@@ -34,6 +34,41 @@ class BruteForceResult:
     best_score: int
     optimal_partitions: Set[str]
 
+
+def bitstring_to_vector(bitstring: str, little_endianess: bool = True) -> np.ndarray:
+    """
+    Converts a bitstring to a numpy array of integers.
+
+    Args:
+        bitstring (str): A string of '0's and '1's.
+
+    Returns:
+        np.ndarray: A numpy array where '1' is represented as 1 and '0' as 0.
+    """
+    if little_endianess:
+        bitstring = bitstring[::-1]
+
+    return np.array([1 if bit == "1" else -1 for bit in bitstring], dtype=np.int8)
+
+
+def vector_to_bitstring(vector: np.ndarray, little_endianess: bool = True) -> str:
+    """
+    Converts a numpy array of integers to a bitstring.
+
+    Args:
+        vector (np.ndarray): A numpy array of integers (1s and -1s).
+
+    Returns:
+        str: A string of '0's and '1's, where 1 is represented as '1' and -1 as '0'.
+    """
+    bitstring = "".join("1" if x == 1 else "0" for x in vector)
+
+    if little_endianess:
+        bitstring = bitstring[::-1]
+
+    return bitstring
+
+
 def compute_cut_score(graph: nx.Graph, bitstring: str) -> int:
     """
     For a given graph and a given partition (defined by a bitstring), computes 
